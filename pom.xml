@@ -28,6 +28,7 @@
     <jenkins-test-harness.version>2.49</jenkins-test-harness.version>
 
     <!-- Project Dependencies Configuration -->
+    <codingstyle.version>0.2.4</codingstyle.version>
     <analysis-model-api.version>7.0.1</analysis-model-api.version>
     <analysis-model.version>7.0.1</analysis-model.version>
     <forensics-api-plugin.version>0.5.0</forensics-api-plugin.version>
@@ -771,7 +772,7 @@
         </executions>
         <configuration>
           <failOnViolation>false</failOnViolation>
-          <configLocation>etc/checkstyle-configuration.xml</configLocation>
+          <configLocation>checkstyle-configuration.xml</configLocation>
           <includeTestSourceDirectory>true</includeTestSourceDirectory>
           <excludes>**/*Assert*.java,**/InjectedTest.java,**/Messages.java</excludes>
         </configuration>
@@ -780,6 +781,11 @@
             <groupId>com.puppycrawl.tools</groupId>
             <artifactId>checkstyle</artifactId>
             <version>${checkstyle.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>edu.hm.hafner</groupId>
+            <artifactId>codingstyle</artifactId>
+            <version>${codingstyle.version}</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -799,7 +805,7 @@
         </executions>
         <configuration>
           <rulesets>
-            <ruleset>etc/pmd-configuration.xml</ruleset>
+            <ruleset>pmd-configuration.xml</ruleset>
           </rulesets>
           <excludeRoots>
             <excludeRoot>target/generated-sources/localizer</excludeRoot>
@@ -821,6 +827,11 @@
             <groupId>net.sourceforge.pmd</groupId>
             <artifactId>pmd-java</artifactId>
             <version>${pmd.version}</version>
+          </dependency>
+          <dependency>
+            <groupId>edu.hm.hafner</groupId>
+            <artifactId>codingstyle</artifactId>
+            <version>${codingstyle.version}</version>
           </dependency>
         </dependencies>
       </plugin>
@@ -844,9 +855,16 @@
           <effort>Max</effort>
           <relaxed>false</relaxed>
           <fork>true</fork>
-          <excludeFilterFile>etc/spotbugs-exclusion-filter.xml</excludeFilterFile>
+          <excludeFilterFile>spotbugs-exclusion-filter.xml</excludeFilterFile>
           <includeTests>true</includeTests>
         </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>edu.hm.hafner</groupId>
+            <artifactId>codingstyle</artifactId>
+            <version>${codingstyle.version}</version>
+          </dependency>
+        </dependencies>
       </plugin>
       <plugin>
         <groupId>org.revapi</groupId>
@@ -1008,6 +1026,11 @@
     <repository>
       <id>repo.jenkins-ci.org</id>
       <url>https://repo.jenkins-ci.org/public/</url>
+    </repository>
+    <repository>
+      <id>github</id>
+      <name>Apache Maven Packages of Ullrich Hafner's Codingstyle</name>
+      <url>https://maven.pkg.github.com/uhafner/codingstyle</url>
     </repository>
   </repositories>
 
